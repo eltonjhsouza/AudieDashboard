@@ -80,23 +80,7 @@
                 <q-item-label>Categorias</q-item-label>
               </q-item-section>
             </q-item>
-            <q-item clickable  @click="goTo('Streaming')" :inset-level="0.6"  >
-              <q-item-section thumbnail class="text-white">
-                <q-icon name="sensors"/>
-              </q-item-section>
-              <q-item-section >
-                <q-item-label>Streaming</q-item-label>
-              </q-item-section>
-            </q-item>
-            <q-item clickable :inset-level="0.6"  >
-              <q-item-section thumbnail class="text-white">
-                <q-icon name="description"/>
-              </q-item-section>
-              <q-item-section >
-                <q-item-label>Metadados</q-item-label>
-              </q-item-section>
-            </q-item>
-            <q-item clickable :inset-level="0.6"  >
+            <q-item clickable @click="goTo('Personalize')" :inset-level="0.6"  >
               <q-item-section thumbnail class="text-white">
                 <q-icon name="palette"/>
               </q-item-section>
@@ -104,20 +88,12 @@
                 <q-item-label>Personalizar</q-item-label>
               </q-item-section>
             </q-item>
-            <q-item clickable :inset-level="0.6"  >
+            <q-item clickable @click="goTo('Settings')" :inset-level="0.6"  >
               <q-item-section thumbnail class="text-white">
-                <q-icon name="palette"/>
+                <q-icon name="settings"/>
               </q-item-section>
               <q-item-section >
-                <q-item-label>Personalizar</q-item-label>
-              </q-item-section>
-            </q-item>
-            <q-item clickable :inset-level="0.6"  >
-              <q-item-section thumbnail class="text-white">
-                <q-icon name="palette"/>
-              </q-item-section>
-              <q-item-section >
-                <q-item-label>Podcast</q-item-label>
+                <q-item-label>Settings</q-item-label>
               </q-item-section>
             </q-item>
           </q-list> 

@@ -22,7 +22,10 @@ const routes = [
       {path: '/News', component: () => import('pages/News/News.vue')},
       {path: '/Category', component: () => import('pages/News/Category.vue')},
       {name: 'NewPost', path: '/NewPost', component: () => import('pages/News/Posts.vue')},
-      {name: 'Streaming', path: '/Streaming', component: () => import('pages/Streaming/Streaming.vue')},
+      {name: 'Streaming', path: '/Streaming', component: () => import('pages/Componentes/Streaming/Streaming.vue')},
+      {name: 'Settings', path: '/Settings', component: () => import('pages/Settings/Settings.vue')},
+      {name: 'Personalize', path: '/Personalize', component: () => import('pages/Componentes/Personalizar/Personalize.vue')},
+
     ]
   },
   {
