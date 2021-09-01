@@ -192,11 +192,12 @@
 
         <div class="preview q-ml-md flex" >
             <div class="flex">
+            <div class="">
                 <span class="text-blue-grey-9 q-mr-md"> Preview do App </span>
             </div>
-            <div class="flex">
-                <!-- <iframe id="android-iframe" frameborder="0" src="https://v0-14.quasar-framework.org/quasar-play/android/index.html#/showcase/style-and-identity/color-palette"></iframe> -->
-                <PreviewApp />
+                <iframe id="android-iframe" class="iframe" frameborder="0" src="/PreviewApp">
+                </iframe>
+                <!-- <PreviewApp :data="noImage" /> -->
             </div>
         </div>
     </div>
@@ -229,10 +230,12 @@ export default {
     }
   },
   methods: {
+    editStation () {
 
+    }
   },
   mounted () {
-    this.getAllUrls()
+    // this.getAllUrls()
   },
   watch: {
     primaryColor(val) {
@@ -244,5 +247,9 @@ export default {
 <style scoped>
 .roundImage {
   border-radius: 50%;
+}
+.iframe {
+    width: 378px;
+    height: 640px;
 }
 </style>

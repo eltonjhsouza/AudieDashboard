@@ -1,5 +1,5 @@
 
-<template>
+<template style="max-width:100px">
   <q-layout view="hHh lpR fFf">
     <q-header elevated style="background-color: transparent; backdrop-filter: blur(20px);">
       <q-toolbar class="flex justify-between q-ma-sm">
@@ -46,10 +46,10 @@
       </q-scroll-area>
     </q-drawer>
 
-    <q-footer style="background-color: #00537159; backdrop-filter: blur(20px);">
+  <q-footer style="background-color: #00537159; backdrop-filter: blur(20px);">
 
-    <q-expansion-item dark
-      v-if="checkPage()"
+    <q-expansion-item 
+      dark
       expand-icon-toggle
       switch-toggle-side
       expand-icon-class="iconExpand"
@@ -95,27 +95,17 @@
         </template>
 
         <q-card style="height:calc(100vh - 60px);overflow-y: auto; background-color: transparent; backdrop-filter: blur(25px);">
-          <!-- <div class="flex justify-center">
-            <q-img
-            class="q-ma-xl"
-            width="76vw"
-            height="40vh"
-            :src="cover_img"
-            style="border-radius: 10px"
-            />
-          </div> -->
-          <!-- <q-linear-progress :value="progress" class="q-mt-md" /> -->
           <q-footer style="background-color: transparent; backdrop-filter: blur(25px);">
-          <!-- <q-card-section> -->
+          <q-card-section class="flex justify-center">
             <q-img
-            class="q-ma-xl justify-center"
-            width="76vw"
-            height="40vh"
+            class="q-mt-xl flex"
+            width="56vw"
+            height="30vh"
             :src="cover_img"
             style="border-radius: 10px"
             />
-          <!-- </q-card-section> -->
-          <div class="col q-ma-lg q-pa-sm q-gutter-sm">
+          </q-card-section>
+          <div class="col q-ma-md q-pa-sm q-gutter-sm">
             <div class="flex justify-center text-h4">
               <span class="text-white"> <b>{{ player.curArtist }}</b></span>
             </div>
@@ -129,7 +119,7 @@
             <PlayerBarCover  :data="iconPlayer" />
           </q-footer>
         </q-card>
-      </q-expansion-item>
+    </q-expansion-item>
       <q-toolbar-title
       :style="style"
       style="background-color: #005371; backdrop-filter: none;"
@@ -147,11 +137,13 @@
           <q-tab class="text-weight-thin" name="redes" label="Redes Sociais"  icon="people_alt" no-caps @click="gotoSocial"/>
         </q-tabs>
       </q-toolbar-title>
-    </q-footer>
+  </q-footer>
 
     <q-page-container>
       <router-view />
     </q-page-container>
+
+
       <q-dialog v-model="showLetter" full-width full-height>
         <q-card class="text-white" style="background-color: #00000080; backdrop-filter: blur(10px); border-radius:10px;">
           <q-card-section >
@@ -160,8 +152,8 @@
           </q-card-section>
           <q-card-section class="q-pt-none scroll"  style="max-height: 80vh">
             <q-img :src="logomarca" class="flex justify-end q-ma-md" style="width:103px" />
-            <span v-html="musicLetter"/>
-            <Letter :data="musicLetter" v-if="musicLetter==1  "/>
+            <!-- <span v-html="musicLetter"/> -->
+            <!-- <Letter :data="musicLetter" v-if="musicLetter==1  "/> -->
           </q-card-section>
         </q-card>
       </q-dialog>
@@ -170,23 +162,41 @@
 
 <script>
 import noImage from 'src/assets/no-image.png'
+import PlayerBarCover from './PlayerPreview/Player-barCover.vue'
 
 // import { saveUrl, getAllUrls, updateUrlById, deleteUrlById } from '../service.js'
 // import { Dialog } from 'quasar'
 
 export default {
   name: "PreviewApp",
-  props: ['logo'],
+  components: {
+    PlayerBarCover
+  },
+  props: ['data'],
     data() {
       return {
-        logomarca: ''
+        show: false,
+        cover_img: noImage,
+        showLetter: false,
+        logomarca: '',
+        iconPlayer: 'play_arrow',
+        openedCover: true,
+        player: {
+          curArtist: 'Nome do Artista',
+          curMus: 'Nome da Musica',
+          nextArt: 'Prox Artista',
+          nextMus: 'Prox Musica'
+        }
     }
   },
   methods: {
-
+    gotoHome () {
+      
+    }
   },
   mounted () {
-      this.logomarca = logo
+      this.logomarca = this.data
+      console.log(this.logomarca)
   },
   watch: {
     primaryColor(val) {

@@ -25,6 +25,7 @@ const routes = [
       {name: 'Streaming', path: '/Streaming', component: () => import('pages/Componentes/Streaming/Streaming.vue')},
       {name: 'Settings', path: '/Settings', component: () => import('pages/Settings/Settings.vue')},
       {name: 'Personalize', path: '/Personalize', component: () => import('pages/Componentes/Personalizar/Personalize.vue')},
+      {name: 'PreviewApp', path: '/PreviewApp', component: () => import('pages/Componentes/PreviewApp/PreviewApp.vue')},
 
     ]
   },
