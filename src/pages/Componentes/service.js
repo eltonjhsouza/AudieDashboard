@@ -25,3 +25,9 @@ export const updateUrlById = (id, payload) => {
 export const deleteUrlById = (id) => {
   return http.delete('/api/v1/url/' + id).then(i => i.data)
 }
+
+// NEWS 
+export const getNews = () => {
+  return http.get('/api/v1/News/').then(i => i.data)
+}
+

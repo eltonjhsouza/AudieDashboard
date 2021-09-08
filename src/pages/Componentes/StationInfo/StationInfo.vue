@@ -80,7 +80,7 @@
         </q-item-label>
       </q-item>
 
-        <q-item class="q-ml-md" v-if="defaultImage == true" >
+        <q-item class="q-ml-md" v-if="defaultImage == false" >
           <q-item-section>
         <q-item-label lines="1">{{ 'Faça o upload da imagem padrão' }}</q-item-label>
             <q-item-label>

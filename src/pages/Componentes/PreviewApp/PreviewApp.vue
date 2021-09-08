@@ -2,49 +2,16 @@
 <template style="max-width:100px">
   <q-layout view="hHh lpR fFf">
     <q-header elevated style="background-color: transparent; backdrop-filter: blur(20px);">
-      <q-toolbar class="flex justify-between q-ma-sm">
-          <div class="flex justify-start">
+      <q-toolbar class="flex justify-center q-ma-sm">
+          <!-- <div class="flex justify-start">
             <q-icon v-show="this.$route.name != 'home'" name="chevron_left" size="30px" @click="gotoHome"/>
-          </div>
-        <q-img :src="logomarca" class="flex justify-center" style="max-width:100px" />
+          </div> -->
+        <q-img :src="logomarca" class="flex" style="max-width:100px" />
           <div class="flex justify-start">
             <!-- <q-icon name="ios_share" size="30px" /> -->
           </div>
       </q-toolbar>
     </q-header>
-
-    <q-drawer
-    v-if="show==true"
-      v-model="drawer"
-      show-if-above
-      :width="200"
-      :breakpoint="500"
-      :mini="miniState"
-      @mouseover="miniState = false"
-      @mouseout="miniState = true"
-
-      bordered
-      content-class="bg-indigo-10"
-      class="drawer"
-    >
-      <q-scroll-area class="fit">
-        <q-list>
-
-          <template v-for="(menuItem, index) in menuList">
-            <q-item :key="index" clickable :active="menuItem.label === 'Outbox'" v-ripple @click="gotoRoute(menuItem.route)">
-              <q-item-section avatar class="iconColor">
-                <q-icon :name="menuItem.icon" />
-              </q-item-section>
-              <q-item-section class="iconColor">
-                {{ menuItem.label }}
-              </q-item-section>
-            </q-item>
-            <q-separator :key="'sep' + index"  v-if="menuItem.separator" />
-          </template>
-
-        </q-list>
-      </q-scroll-area>
-    </q-drawer>
 
   <q-footer style="background-color: #00537159; backdrop-filter: blur(20px);">
 
@@ -94,7 +61,7 @@
           </q-item-section>
         </template>
 
-        <q-card style="height:calc(100vh - 60px);overflow-y: auto; background-color: transparent; backdrop-filter: blur(25px);">
+        <q-card style="height:calc(100vh - 9vh);overflow-y: auto; background-color: transparent; backdrop-filter: blur(25px);">
           <q-footer style="background-color: transparent; backdrop-filter: blur(25px);">
           <q-card-section class="flex justify-center">
             <q-img
@@ -116,13 +83,13 @@
               <q-btn color="white" flat text-color="white" style="border-radius: 20px" label="VER LETRA" hidden @click="getLetter"/>
             </div>
           </div>
-            <PlayerBarCover  :data="iconPlayer" />
+            <PlayerBarCover :data="iconPlayer" />
           </q-footer>
         </q-card>
     </q-expansion-item>
-      <q-toolbar-title
-      :style="style"
-      style="background-color: #005371; backdrop-filter: none;"
+
+    <q-toolbar-title
+      :style="'background-color: #005371; backdrop-filter: none;' + styles"
       v-show="this.$route.name != 'cover'">
         <q-tabs
           v-model="tab"
@@ -131,7 +98,6 @@
           class="menuTabs"
         >
           <q-tab class="text" name="home" icon="home" label="Home" no-caps  @click="gotoHome"/>
-          <!-- <q-tab class="text-weight-thin" name="news" icon="fas fa-plus-circle" no-caps label="Noticias" /> -->
           <q-tab class="text-weight-thin" name="promo" label="Promoções"  icon="style" no-caps  @click="gotoPromo"/>
           <q-tab class="text-weight-thin" name="tv" label="TV" icon="live_tv" no-caps  @click="gotoHome"/>
           <q-tab class="text-weight-thin" name="redes" label="Redes Sociais"  icon="people_alt" no-caps @click="gotoSocial"/>
@@ -139,9 +105,16 @@
       </q-toolbar-title>
   </q-footer>
 
-    <q-page-container>
-      <router-view />
-    </q-page-container>
+    <!-- <q-page-container> -->
+      <!-- <router-view /> -->
+      <div class="wrapper center q-mt-md">
+          <div class="item q-ml-sm">
+            <Banners />
+          </div>
+      </div>
+      <VideoPlayer />
+      <News />
+    <!-- </q-page-container> -->
 
 
       <q-dialog v-model="showLetter" full-width full-height>
@@ -162,15 +135,19 @@
 
 <script>
 import noImage from 'src/assets/no-image.png'
+import defaultLogo from './Logo.png'
 import PlayerBarCover from './PlayerPreview/Player-barCover.vue'
-
-// import { saveUrl, getAllUrls, updateUrlById, deleteUrlById } from '../service.js'
-// import { Dialog } from 'quasar'
+import News from './PostsPreview/News.vue'
+import Banners from './Banners/Banners.vue'
+import VideoPlayer from './Video/VideoPlayer.vue'
 
 export default {
   name: "PreviewApp",
   components: {
-    PlayerBarCover
+    PlayerBarCover,
+    News,
+    Banners,
+    VideoPlayer
   },
   props: ['data'],
     data() {
@@ -178,9 +155,11 @@ export default {
         show: false,
         cover_img: noImage,
         showLetter: false,
-        logomarca: '',
+        logomarca: defaultLogo,
+        tab: 'mails',
         iconPlayer: 'play_arrow',
         openedCover: true,
+        styles: '',
         player: {
           curArtist: 'Nome do Artista',
           curMus: 'Nome da Musica',
@@ -190,13 +169,29 @@ export default {
     }
   },
   methods: {
+    hideMenu (val) {
+      if (val === 1) {
+        console.log(val)
+        this.styles = 'height: 0px'
+        this.openedCover = false
+      } else {
+        this.styles = ''
+        this.openedCover = true
+      }
+    },
     gotoHome () {
-      
+    },
+    gotoSocial () {
+    },
+    gotoPromo () {
+    },
+    getLetter () {
     }
   },
   mounted () {
-      this.logomarca = this.data
+      // this.logomarca = this.data
       console.log(this.logomarca)
+      console.log(this.$route.name)
   },
   watch: {
     primaryColor(val) {
@@ -205,3 +200,31 @@ export default {
   }
 }
 </script>
+<style scoped>
+.wrapper {
+    overflow-x: auto;
+    display: flex;
+}
+.wrapper::-webkit-scrollbar {
+    widows: 0;
+    display: none;
+}
+.wrapper .item {
+    /* min-width: 110px; */
+    /* line-height: 110px; */
+    margin-right: 10px;
+}
+
+.q-item.q-item-type.row.no-wrap.q-item--dark {
+    height: 10vh;
+}
+
+@media only screen and (max-width: 1920px) {
+  .cropImg {
+    widows: 20px;
+}
+.q-item.q-item-type.row.no-wrap.q-item--dark {
+    height: 10vh;
+}
+}
+</style>
