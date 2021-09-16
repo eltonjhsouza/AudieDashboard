@@ -34,10 +34,10 @@
           </q-item-section>
 
           <q-item-section v-show="openedCover">
-            <div class="text-uppercase">
+            <div class="text-uppercase" v-show="showMusicInfo">
             {{ player.curArtist }}
             </div>
-            <div class="text-caption">
+            <div class="text-caption" v-show="showMusicInfo">
             {{ player.curMus }}
             </div>
           </q-item-section>
@@ -73,10 +73,10 @@
             />
           </q-card-section>
           <div class="col q-ma-md q-pa-sm q-gutter-sm">
-            <div class="flex justify-center text-h4">
+            <div class="flex justify-center text-h4" v-show="showMusicInfo">
               <span class="text-white"> <b>{{ player.curArtist }}</b></span>
             </div>
-            <div class="flex justify-center text-h5">
+            <div class="flex justify-center text-h5" v-show="showMusicInfo">
               <span class="text-white"> {{ player.curMus }} </span>
             </div>
             <div class="flex justify-center" v-show="showMusicLetter">
@@ -100,6 +100,7 @@
           <q-tab class="text" name="home" icon="home" label="Home" no-caps  @click="gotoHome"/>
           <q-tab class="text-weight-thin" name="promo" label="Promoções"  icon="style" no-caps  @click="gotoPromo"/>
           <q-tab class="text-weight-thin" name="tv" label="TV" icon="live_tv" no-caps  @click="gotoHome"/>
+          <q-tab class="text-weight-thin" name="podcast" label="Podcast" icon="fa fa-podcast" no-caps  @click="gotoPodcasts"/>
           <q-tab class="text-weight-thin" name="redes" label="Redes Sociais"  icon="people_alt" no-caps @click="gotoSocial"/>
         </q-tabs>
       </q-toolbar-title>
@@ -155,6 +156,7 @@ export default {
   props: ['data'],
     data() {
       return {
+        showMusicInfo: true,
         showPosts: true,
         showVideoPlayer: true,
         showBanner: true,
@@ -192,6 +194,8 @@ export default {
     },
     gotoPromo () {
     },
+    gotoPodcasts () {
+    },
     getLetter () {
     }
   },
@@ -223,15 +227,17 @@ export default {
       })
 
       this.$root.$on('update_useLogo', (val)=> {
-        console.log(this.cover_img)
         if ( val == true) {
-          this.noImage = this.logomarca
+          this.cover_img= defaultLogo
+        } else {
+          this.cover_img= noImage
         }
-        this.cover_img = this.noImage
-        console.log(this.cover_img)
       })
-
-      console.log(this.logomarca)
+      this.$root.$on('update_showMusicName', (val)=> {    
+        console.log(val)
+        this.showMusicInfo = val
+      })
+      // console.log(this.logomarca)
       console.log(this.$route.name)
   },
   watch: {

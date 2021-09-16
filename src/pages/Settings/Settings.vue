@@ -134,8 +134,8 @@ export default {
       editStationName: false,
       lang: '',
       user_acronym: '',
-      user_name: 'Elton',
-      user_email: 'eltonjhsouza@gmail.com',
+      user_name: '',
+      user_email: '',
       station_name: '',
       images: [],
       showImage: ''
