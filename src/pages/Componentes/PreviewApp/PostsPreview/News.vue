@@ -1,11 +1,10 @@
 <template>
 <div class="q-ma-sm">
   <template >
-    <div class="flex justify-evenly" style="background-color: #00516c;">
+    <div class="flex justify-evenly news" style="background-color: #00516c;">
       <div class="flex" v-for="item in news" :key="item.publishedAt">
         <q-card class="cardNews q-mb-sm" @click="gotoNews(item)">
         <q-img
-          style="height:250px"
           :src="item.imageUrl"
           v-if="item.imageUrl != ''"
           >
@@ -102,9 +101,14 @@ export default {
 
 </script>
 <style scoped>
+.news {
+  width: 20vw;
+  height: 25vh;
+}
 .cardNews {
-  width: 190px;
-  height: 250px;
+  width: 38vh;
+  /* width: 190px;
+  height: 250px; */
 }
 .section {
   height: 20px;

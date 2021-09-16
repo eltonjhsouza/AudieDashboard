@@ -1,6 +1,7 @@
 
-<template style="max-width:100px">
-  <q-layout view="hHh lpR fFf">
+<template class="itemApp">
+<!-- <q-page > -->
+  <q-layout style="background-color: #005371; min-height: 66vh;">
     <q-header elevated style="background-color: transparent; backdrop-filter: blur(20px);">
       <q-toolbar class="flex justify-center q-ma-sm">
           <!-- <div class="flex justify-start">
@@ -61,13 +62,12 @@
           </q-item-section>
         </template>
 
-        <q-card style="height:calc(100vh - 9vh);overflow-y: auto; background-color: transparent; backdrop-filter: blur(25px);">
+        <q-card style="height:calc(70vh - 10vh);overflow-y: auto; background-color: transparent; backdrop-filter: blur(25px);">
           <q-footer style="background-color: transparent; backdrop-filter: blur(25px);">
           <q-card-section class="flex justify-center">
             <q-img
             class="q-mt-xl flex"
-            width="56vw"
-            height="30vh"
+            width="10vw"
             :src="cover_img"
             style="border-radius: 10px"
             />
@@ -79,7 +79,7 @@
             <div class="flex justify-center text-h5">
               <span class="text-white"> {{ player.curMus }} </span>
             </div>
-            <div class="flex justify-center">
+            <div class="flex justify-center" v-show="showMusicLetter">
               <q-btn color="white" flat text-color="white" style="border-radius: 20px" label="VER LETRA" hidden @click="getLetter"/>
             </div>
           </div>
@@ -105,17 +105,18 @@
       </q-toolbar-title>
   </q-footer>
 
-    <!-- <q-page-container> -->
+    <q-page-container>
       <!-- <router-view /> -->
       <div class="wrapper center q-mt-md">
-          <div class="item q-ml-sm">
+          <div class="item q-ml-sm" v-show="showBanner">
             <Banners />
           </div>
       </div>
-      <VideoPlayer />
-      <News />
-    <!-- </q-page-container> -->
-
+      <VideoPlayer v-show="showVideoPlayer"/>
+      <div class="wrapper center q-mt-md">
+      <News class="news" v-show="showPosts"/>
+      </div>
+    </q-page-container>
 
       <q-dialog v-model="showLetter" full-width full-height>
         <q-card class="text-white" style="background-color: #00000080; backdrop-filter: blur(10px); border-radius:10px;">
@@ -131,6 +132,8 @@
         </q-card>
       </q-dialog>
   </q-layout>
+<!-- </q-page> -->
+
 </template>
 
 <script>
@@ -152,9 +155,13 @@ export default {
   props: ['data'],
     data() {
       return {
+        showPosts: true,
+        showVideoPlayer: true,
+        showBanner: true,
         show: false,
         cover_img: noImage,
         showLetter: false,
+        showMusicLetter: false,
         logomarca: defaultLogo,
         tab: 'mails',
         iconPlayer: 'play_arrow',
@@ -188,8 +195,42 @@ export default {
     getLetter () {
     }
   },
+  created () {
+    // this.$root.$on('update_banner', (val)=> {
+    //   this.showBanner = val
+    //   // console.log(val)
+    // })
+    
+  },
   mounted () {
-      // this.logomarca = this.data
+      this.$root.$on('update_banner', (val)=> {
+       this.showBanner = val
+      })
+
+      this.$root.$on('update_playerVideo', (val)=> {
+       this.showVideoPlayer = val
+      })
+
+      this.$root.$on('update_posts', (val)=> {
+       this.showPosts = val
+      })
+
+      this.$root.$on('update_musicLetter', (val)=> {
+        
+        this.showMusicLetter = val
+        console.log(val1)
+        console.log(this.showMusicLetter)
+      })
+
+      this.$root.$on('update_useLogo', (val)=> {
+        console.log(this.cover_img)
+        if ( val == true) {
+          this.noImage = this.logomarca
+        }
+        this.cover_img = this.noImage
+        console.log(this.cover_img)
+      })
+
       console.log(this.logomarca)
       console.log(this.$route.name)
   },
@@ -201,6 +242,27 @@ export default {
 }
 </script>
 <style scoped>
+/* .ar-screen {
+position: absolute;
+    top: 22vh;
+    left: 51.7vw;
+    display: block;
+    font-size: 0;
+    transition-property: left,top,opacity;
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
+    transform: translate3d(0,0,0);
+    overflow: hidden;
+}
+ */
+ .news {
+    height: 20vh;
+    /* width: 18.6vw; */
+ }
+.itemApp {
+    width: 18.6vw;
+    height: 51.5vh;
+}
 .wrapper {
     overflow-x: auto;
     display: flex;

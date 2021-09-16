@@ -4,7 +4,7 @@
           <q-img
               class="rounded-borders imgDay"  
               :src="item.imageUrl"
-              style="max-height:150px; width:90vw"
+              style=""
           />
       </q-card>
     </div>
@@ -37,8 +37,12 @@ export default {
 }
 </script>
 <style scoped>
+.card-day {
+    width: 16vw;
+
+}
 .imgDay {
-    width: 150px;
+    width: 16vw;
 }
 .wrapper {
     overflow-x: auto;

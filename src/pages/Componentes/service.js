@@ -31,3 +31,12 @@ export const getNews = () => {
   return http.get('/api/v1/News/').then(i => i.data)
 }
 
+//Personalize
+export const postConfiguration = (payload) => {
+  return http.post('/api/v1/Personalize', payload).then(i => i.data)
+}
+
+export const getConfiguration = () => {
+  return http.get('/api/v1/Personalize/').then(i => i.data)
+}
+

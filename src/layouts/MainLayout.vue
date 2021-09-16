@@ -320,6 +320,12 @@
             return {
                 leftDrawerOpen: false,
             }
+        },
+        created () {
+        this.$root.$on('update_banner', (val)=> {
+        // this.showBanner = val
+        console.log(val)
+      })
         }
     }
 </script>
