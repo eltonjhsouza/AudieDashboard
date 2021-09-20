@@ -1,6 +1,6 @@
 import axios from 'axios'
 import interceptors from './interceptors'
-// import serverInterceptors from "./serverInterceptors"
+import audieInterceptors from "./audieInterceptors"
 import { apiBaseUrl, newsApi, apiAiresUrl } from '../config.js'
 
 const http = axios.create({
@@ -35,7 +35,7 @@ export function setToken(token) {
 
 export default ({ router, store, Vue }) => {
   interceptors(airesUrl, store, router)
-  // serverInterceptors(http, store, router)
+  audieInterceptors(http, store, router)
   // Vue.prototype.$axios = http
   Vue.prototype.$axios = airesUrl
 }

@@ -100,7 +100,7 @@ import { Loading } from "quasar"
 import {
   getInstances,
   setTimezone,
-  setStation,
+  // setStation,
   createInstance
 } from "./service.js"
 import { mapGetters, mapActions } from "vuex"
@@ -158,18 +158,21 @@ export default {
         // Armazena o station selecionado no Vuex
         this.set_station(selectedStation)
           .then(() => {
-            setStation()
-              .then((response) => {
-                Loading.hide()
-                // console.log(response)
-                // Carrega o Station selecionado e o timezone do station
-                self.callSetTimezone()
-              })
-              .catch((error) => {
-                Loading.hide()
-                // console.log(error)
-                // console.log(error.message)
-              })
+            // setStation()
+            //   .then((response) => {
+            //     Loading.hide()
+            //     // console.log(response)
+            //     // Carrega o Station selecionado e o timezone do station
+            //     self.callSetTimezone()
+            //   })
+            //   .catch((error) => {
+            //     Loading.hide()
+            //     // console.log(error)
+            //     // console.log(error.message)
+            //   })
+              self.callSetTimezone()
+               Loading.hide()
+
           })
           .catch((err) => console.log(err))
         sessionStorage.setItem("stationId", selectedStation.stationId)

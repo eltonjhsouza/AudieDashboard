@@ -157,9 +157,9 @@
 <script>
 import { Loading } from "quasar"
 import { getOperatorsBySoftware, getCustomerProfile } from "../service.js"
-// import { pallete } from "src/assets/pallete.js"
+import { pallete } from "src/assets/pallete.js"
 import { mapGetters, mapActions } from "vuex"
-// import helpOperators from "./help-operators.vue"
+import helpOperators from "./help-operators.vue"
 
 let profiles = []
 
@@ -226,7 +226,9 @@ export default {
       sessionStorage.setItem("operatorName", item.name)
       this.set_operator(item)
         .then(() => {
-          this.$router.push({ name: "new" })
+          this.$router.push({ path: "/Home" })
+          Loading.hide()
+
         })
         .catch((err) => console.log(err))
     },
