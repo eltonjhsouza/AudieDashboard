@@ -47,7 +47,7 @@
       :width="250"
     >
       <q-list bordered >
-        <q-item to="/" active-class="q-item-no-link-highlighting">
+        <q-item to="/Home" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
             <q-icon name="dashboard"/>
           </q-item-section>

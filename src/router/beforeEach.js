@@ -1,0 +1,48 @@
+import * as types from "../store/module-example/types"
+import store from "../store"
+
+const needAuth = (auth) => auth === true
+
+const beforeEach = (to, from, next) => {
+  const auth = to.meta.requiresAuth
+
+  /**
+   * If route doesn't require authentication be normally accessed.
+   */
+  if (!needAuth(auth)) {
+    next()
+    return // return to prevent the code from continuing in its flow
+    // With this flow `else` or `else if` is not necessary
+  }
+
+  store
+    .dispatch(types.CHECK_USER_TIMEZONE)
+    .then(() => {
+      console.log(1234)
+    })
+    .catch(() => {
+      // let detect = tz.determine()
+      // let tzId = detect.name() || 'UTC'
+      // store.dispatch(types.SET_USER_TIMEZONE, tzId)
+      store.dispatch(types.SET_USER_TIMEZONE, store.state.deviceTimeZoneId)
+    })
+
+  /**
+   * Otherwise  if authentication is required login.
+   */
+  store
+    .dispatch("checkUserToken")
+    .then(() => {
+      // There is a token and it is valid
+      next() // can access the route
+    })
+    .catch(() => {
+      // No token, or it is invalid
+      next({
+        name: "requestAccessToken",
+        query: { redirectUrl: `${window.location.origin}${to.path}` }
+      })
+    })
+}
+
+export default beforeEach

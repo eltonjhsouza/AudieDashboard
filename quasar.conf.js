@@ -9,7 +9,9 @@ module.exports = function (ctx) {
     boot: [
       'i18n',
       'axios',
-      'apex'
+      'apex',
+      "sync", 
+      "vuelidate"
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -20,7 +22,7 @@ module.exports = function (ctx) {
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
       // 'ionicons-v4',
-      // 'mdi-v4',
+      "mdi-v5",
       'fontawesome-v5',
       // 'eva-icons',
       // 'themify',
@@ -56,11 +58,7 @@ module.exports = function (ctx) {
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
-      scopeHoisting: true,
       vueRouterMode: 'history', // available values: 'hash', 'history'
-      showProgress: true,
-      gzip: false,
-      analyze: false,
       env: {
         AUDIE_API: ctx.dev 
           ? "http://localhost:5000"
@@ -68,23 +66,35 @@ module.exports = function (ctx) {
         NEWS_API: ctx.dev 
         ? "https://newsapi.org"
         : "https://newsapi.org",
+        AIRES_STUDIO_URL: ctx.dev
+          ? "http://localhost:5017"
+          : "https://api-aires.playlistsolutions.com",
+        CENTRAL_LOGIN_URL: ctx.dev
+        ? "https://localhost:5101"
+        : "https://account.playlistsolutions.com",
       },
       // Options below are automatically set depending on the env, set them if you want to override
       // extractCSS: false,
 
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack (cfg) {
+        cfg.module.rules.push({
+          enforce: "pre",
+          test: /\.(js|vue)$/,
+          // loader: "eslint-loader",
+          exclude: /node_modules/
+        })
       }
     },
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
-      https: false,
-      port: 8080,
+      // https: false,
+      port: 8081,
       open: true // opens browser window automatically
     },
 
-    // animations: 'all', // --- includes all animations
+    animations: 'all', // --- includes all animations
     // https://quasar.dev/options/animations
     animations: [],
 
@@ -167,7 +177,7 @@ module.exports = function (ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'quasar-admin'
+        // appId: 'quasar-admin'
       },
 
       // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration
